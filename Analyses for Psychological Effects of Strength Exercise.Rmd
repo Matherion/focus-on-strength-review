@@ -1,0 +1,893 @@
+---
+title: "Analyses for The Psychological Effects of Strength Exercises in People who are Overweight or Obese: A Systematic Review"
+author: "Gill ten Hoor & Gjalt-Jorn Ygram Peters"
+date: "`r format(Sys.time(), '%Y-%m-%d at %X');`"
+output:
+  html_document:
+    toc: true
+---
+
+```{r setup, include=FALSE}
+
+knitr::opts_chunk$set(echo = FALSE);
+
+basePath <- 'B:/Data/research/kids studies/review/focus-on-strength-review'
+dataPath <- basePath;
+workingPath <- file.path(basePath, "output");
+#filenameToImport <- 'results for import.csv';
+filenameToImport <- 'results for import - updated query, May 2016.csv';
+
+require(userfriendlyscience)
+require(metafor)
+require(plyr)
+require(ggplot2);
+require(grid);
+require(gridExtra);
+
+################################################################################
+
+correlationCoefficients <- c(.3, .5, .7);
+
+################################################################################
+
+```
+
+# Data loading and preparation
+
+```{r}
+
+### Import results
+dat <- read.csv(file.path(dataPath, filenameToImport));
+
+### Compute variance of Cohen's d, where it was supplied (if Cohen's d was
+### supplied in the datafile, this means it was computed on the basis of
+### changes between pre- and post-test, so we use post-test sample sizes).
+dat$d_variance <- convert.d.to.variance(dat$d, dat$t1_n1, dat$t1_n2);
+
+### Compute standardized mean change per group, based on on:
+###    http://stats.stackexchange.com/questions/44745
+dat$dmc1 <- (dat$t1_mean1 - dat$t0_mean1) / dat$t0_sd1;
+dat$dmc2 <- (dat$t1_mean2 - dat$t0_mean2) / dat$t0_sd2;
+
+### Compute variances of these estimates (for each correlation
+### specified in correlationCoefficients).
+for (currentR in correlationCoefficients) {
+  dat[, paste0('dmc1_v_', currentR)] <-
+    (2 * (1 - currentR)) /
+    (dat$t1_n1 + (dat$dmc1^2 / (2 * dat$t1_n1)));
+  dat[, paste0('dmc2_v_', currentR)] <-
+    (2 * (1 - currentR)) /
+    (dat$t1_n2 + (dat$dmc2^2 / (2 * dat$t1_n2)));
+}
+
+### Compute final effect size estimate, based on:
+###    http://stats.stackexchange.com/questions/190712
+dat$es <- dat$dmc1 - dat$dmc2;
+
+################################################################################
+################################################################################
+
+dat[, paste0('es_v_', correlationCoefficients)] <-
+  dat[, paste0('dmc1_v_', correlationCoefficients)] +
+  dat[, paste0('dmc2_v_', correlationCoefficients)];
+
+### Now add the manually computed effect sizes
+dat$es <- ifelse(is.na(dat$es) & !is.na(dat$d), dat$d, dat$es);
+
+### Store Compute the variance of the manually computed Cohen's d
+# dat$se_v_0.3 <- ifelse(is.na(dat$se_v_0.3) & !is.na(dat$d_variance), dat$d_variance, dat$se_v_0.3);
+# dat$se_v_0.5 <- ifelse(is.na(dat$se_v_0.5) & !is.na(dat$d_variance), dat$d_variance, dat$se_v_0.5);
+# dat$se_v_0.7 <- ifelse(is.na(dat$se_v_0.7) & !is.na(dat$d_variance), dat$d_variance, dat$se_v_0.7);
+
+### Store unique variable names (after trimming)
+dat$variable <- trim(dat$coder.3..consensus.with.3rd.coder.);
+
+### Invert some variables
+dat$es_raw <- dat$es;
+dat$es <- ifelse(grepl('inverted', dat$variable), -1 * dat$es_raw, dat$es_raw);
+
+### Remove 'inverted' from the variable names
+dat$variable_raw <- dat$variable;
+dat$variable <- sub(' \\(inverted\\)', '', dat$variable);
+
+### Merge QOL variables into one
+dat$variable <- sub('.*QOL.*', 'QOL', dat$variable);
+
+### Now, for every question (every study category represents a different
+### research question), we need to average effect sizes within each study.
+### Therefore, we first create a new variable where we combine these two.
+
+dat$study_category_var <- factor(paste0(dat$studyID, "_",
+                                        dat$study_category, "_",
+                                        dat$variable));
+
+```
+
+# Analyses
+
+## Initial meta-analyses
+
+These are the full results of the between-study meta-analyses. Note that the meta-analyses are not actually reported as such; as we explain, we use the quantitative integration of study results as reporting aid to visualise and explain the associations, but the quantitative outcomes are not discussed as such (see the next section).
+
+```{r}
+
+### Now loop through the correlations and conduct the meta-analyses
+rma.withinStudy <- list();
+dat.rma <- list();
+rma.overStudies <- list();
+for (currentCorrelation in correlationCoefficients) {
+
+  ### Conduct and store within-study meta-analyses
+  rma.withinStudy[[paste0("r_", currentCorrelation)]] <-
+    by(dat, dat$study_category_var, function(dat) {
+    if (!all(is.na(dat[, paste0('es_v_', currentCorrelation)]))) {
+      return(tryCatch(rma(yi=dat$es, vi=dat[, paste0('es_v_', currentCorrelation)],
+                          method="ML"),
+                      error = function(e) {
+                        rma(yi=dat$es, vi=dat[, paste0('es_v_', currentCorrelation)],
+                            method="HE")
+                      }));
+    }
+  });
+
+  ### Extract effect sizes and variances
+  dat.rma[[paste0("r_", currentCorrelation)]] <-
+    ldply(rma.withinStudy[[paste0("r_", currentCorrelation)]], function(x) {
+      if(!is.null(x)) {
+        return(data.frame(yi=coef(x)[1], vi=vcov(x)[1]));
+      }
+    });
+
+  ### Split study/category/variable columns
+  dat.rma[[paste0("r_", currentCorrelation)]] <-
+    cbind(dat.rma[[paste0("r_", currentCorrelation)]],
+          matrix(unlist(strsplit(dat.rma[[paste0("r_", currentCorrelation)]][, '.id'], "_")),
+                 ncol=3, byrow=TRUE));
+  colnames(dat.rma[[paste0("r_", currentCorrelation)]]) <-
+    c('study_category_var', 'yi', 'vi', 'study', 'category', 'variable');
+
+  ### Add category_variable variable (because we should conduct different
+  ### meta-analyses for each variable, and for each category
+  dat.rma[[paste0("r_", currentCorrelation)]]$category_variable <-
+    paste0(dat.rma[[paste0("r_", currentCorrelation)]]$category,
+           "_",
+           dat.rma[[paste0("r_", currentCorrelation)]]$variable);
+
+  ### Conduct real over-study meta-analysis
+  rma.overStudies[[paste0("r_", currentCorrelation)]] <-
+    by(dat.rma[[paste0("r_", currentCorrelation)]],
+      dat.rma[[paste0("r_", currentCorrelation)]]$category_variable,
+      function(dat) {
+        return(rma(yi=dat$yi, vi=dat$vi));
+      });
+}
+
+### Write to text files
+for (currentR in correlationCoefficients) {
+  currentName = paste0("r_", currentR);
+  writeLines(capture.output(rma.withinStudy[[currentName]]),
+             file.path(workingPath,
+                       paste0('Within study meta-analyses for r of ',
+                              currentR, ' (all data).txt')));
+  write.csv(dat.rma[[currentName]],
+            file.path(workingPath,
+                      paste0('Within study meta-analysis data for r of ',
+                             currentR, ' (all data).csv')));
+  writeLines(capture.output(rma.overStudies[[currentName]]),
+             file.path(workingPath,
+                       paste0('Between study meta-analyses for r of ',
+                              currentR, ' (all data).txt')));
+  for (currentMA in names(rma.overStudies[[currentName]])) {
+    png(file.path(workingPath, paste0("forest plot for ",
+                                   currentMA, " for r of ",
+                                   currentR, " (all data).png")));
+    forest(rma.overStudies[[currentName]][[currentMA]]);
+    dev.off();
+    png(file.path(workingPath, paste0("funnel plot for ",
+                                      currentMA, " for r of ",
+                                      currentR, " (all data).png")));
+    funnel(rma.overStudies[[currentName]][[currentMA]]);
+    dev.off();
+  }
+}
+
+### Extract confidence intervals and means, first looping over
+### the correlation sizes
+rma.overStudies.confInts <- ldply(rma.overStudies, .id='correlation', function(x) {
+  ### Then looping over the research question types
+  return(ldply(x, .id='variable', function (x) {
+    return(data.frame(lb=x$ci.lb, es=x$b, ub=x$ci.ub, k=x$k));
+  }));
+});
+
+write.csv(rma.overStudies.confInts,
+          file.path(workingPath,
+                    paste0('Within study meta-analysis confidence intervals (all data).csv')));
+
+print(rma.overStudies);
+
+```
+
+## Figures
+
+### Preparations for figures
+
+```{r}
+
+### Extract those for the first research question and r=.3
+dat1 <- rma.overStudies.confInts[1:7, ]
+dat1$y <- 1:nrow(dat1);
+dat1$variable <- sub('.*_(.*)', '\\1', dat1$variable);
+dat1$variable <- gsub("(?<=\\b)([a-z])", "\\U\\1", tolower(dat1$variable), perl=TRUE);
+
+dat2 <- rma.overStudies.confInts[8:16, ]
+dat2$y <- 1:nrow(dat2);
+dat2$variable <- sub('.*_(.*)', '\\1', dat2$variable);
+dat2$variable <- gsub("(?<=\\b)([a-z])", "\\U\\1", tolower(dat2$variable), perl=TRUE);
+
+dat3 <- rma.overStudies.confInts[17:21, ]
+dat3$y <- 1:nrow(dat3);
+dat3$variable <- sub('.*_(.*)', '\\1', dat3$variable);
+dat3$variable <- gsub("(?<=\\b)([a-z])", "\\U\\1", tolower(dat3$variable), perl=TRUE);
+
+### Build full list of variable names
+allVarNames <- unique(c(dat1$variable, dat2$variable, dat3$variable));
+
+### Add missing variable names to each dataframe
+dat1 <- rbind.fill(dat1,
+                   data.frame(variable = setdiff(allVarNames, dat1$variable)));
+dat2 <- rbind.fill(dat2,
+                   data.frame(variable = setdiff(allVarNames, dat2$variable)));
+dat3 <- rbind.fill(dat3,
+                   data.frame(variable = setdiff(allVarNames, dat3$variable)));
+
+### Sort rows anti-alphabetically
+dat1 <- dat1[order(dat1$variable, decreasing=TRUE), ];
+dat2 <- dat2[order(dat2$variable, decreasing=TRUE), ];
+dat3 <- dat3[order(dat3$variable, decreasing=TRUE), ];
+
+### Replace 'Qol' with 'Quality of Life'
+dat1$variable[dat1$variable=='Qol'] <- 'Quality of Life';
+dat2$variable[dat2$variable=='Qol'] <- 'Quality of Life';
+dat3$variable[dat3$variable=='Qol'] <- 'Quality of Life';
+
+### Set variable names as rownames (for diamondPlot)
+row.names(dat1) <- dat1$variable;
+row.names(dat2) <- dat2$variable;
+row.names(dat3) <- dat3$variable;
+
+### Get minimum and maximum
+range1 <- range(dat1[, 3:5], na.rm=TRUE);
+range2 <- range(dat2[, 3:5], na.rm=TRUE);
+range3 <- range(dat3[, 3:5], na.rm=TRUE);
+totalrange <- range(c(range1, range2, range3));
+totalrange<- c(min(totalrange) - .1,
+               max(totalrange) + .1);
+
+axisLabels <- dat1$variable;
+axisLabels[axisLabels=='Outcome Expectations'] <- 'Outcome\nexpectations';
+axisLabels[axisLabels=='Disorders'] <- 'Psychological\ndisorders';
+axisLabels[axisLabels=='Quality of Life'] <- 'Quality of life';
+axisLabels[axisLabels=='Self-Efficacy'] <- 'Self-efficacy';
+axisLabels[axisLabels=='Self-Esteem'] <- 'Self-esteem';
+
+```
+
+### Plot 1
+
+```{r fig.width=5, fig.height=5}
+
+diamondPlot(dat1[, 3:5], generateColors=c("red", "grey", "green"),
+            fullColorRange = totalrange) +
+  # geom_vline(xintercept = -.2, color="grey") +
+  # geom_vline(xintercept =  .2, color="grey") +
+  # geom_vline(xintercept = -.5, color="grey") +
+  # geom_vline(xintercept =  .5, color="grey") +
+  # geom_vline(xintercept = -.8, color="grey") +
+  # geom_vline(xintercept =  .8, color="grey") +
+  scale_x_continuous(limits=totalrange) +
+  theme_bw() + geom_vline(xintercept=0);
+
+plot1 <- diamondPlot(dat1[, 3:5]) +
+  theme_bw() + geom_vline(xintercept=0) +
+  scale_x_continuous(limits=totalrange, name="Effect size estimate") +
+  # geom_vline(xintercept = -.2, color="grey") +
+  # geom_vline(xintercept =  .2, color="grey") +
+  # geom_vline(xintercept = -.5, color="grey") +
+  # geom_vline(xintercept =  .5, color="grey") +
+  # geom_vline(xintercept = -.8, color="grey") +
+  # geom_vline(xintercept =  .8, color="grey") +
+  scale_y_continuous(breaks=1:length(axisLabels),
+                     labels=axisLabels,
+                     sec.axis=dup_axis(labels=ifelse(is.na(dat1$k), "(k=0)",
+                                                     paste0("(k=", dat1$k, ")")))) +
+  theme(axis.ticks.y = element_blank()) +
+  ggtitle("Category I:\nStrength vs passive control");
+
+grid.newpage();
+grid.draw(plot1);
+
+ggsave(plot = plot1,
+       file.path(workingPath,
+                 "confIntDiamond plot for first research question (all data).png"),
+       type='cairo');
+
+```
+
+### Plot 2
+
+```{r fig.width=5, fig.height=5}
+
+diamondPlot(dat2[, 3:5], generateColors=c("red", "grey", "green"),
+            fullColorRange = totalrange) +
+  scale_x_continuous(limits=totalrange) +
+  # geom_vline(xintercept = -.2, color="grey") +
+  # geom_vline(xintercept =  .2, color="grey") +
+  # geom_vline(xintercept = -.5, color="grey") +
+  # geom_vline(xintercept =  .5, color="grey") +
+  # geom_vline(xintercept = -.8, color="grey") +
+  # geom_vline(xintercept =  .8, color="grey") +
+  theme_bw() + geom_vline(xintercept=0);
+
+plot2 <- diamondPlot(dat2[, 3:5]) +
+  theme_bw() + geom_vline(xintercept=0) +
+  # geom_vline(xintercept = -.2, color="grey") +
+  # geom_vline(xintercept =  .2, color="grey") +
+  # geom_vline(xintercept = -.5, color="grey") +
+  # geom_vline(xintercept =  .5, color="grey") +
+  # geom_vline(xintercept = -.8, color="grey") +
+  # geom_vline(xintercept =  .8, color="grey") +
+  scale_x_continuous(limits=totalrange, name="Effect size estimate") +
+  scale_y_continuous(breaks=1:length(axisLabels),
+                     labels=axisLabels,
+                     sec.axis=dup_axis(labels=ifelse(is.na(dat2$k), "(k=0)",
+                                                     paste0("(k=", dat2$k, ")")))) +
+  theme(axis.ticks.y = element_blank()) +
+  ggtitle("Category II:\nStrength + active control vs active control");
+
+grid.newpage();
+grid.draw(plot2);
+
+ggsave(plot = plot2,
+       file.path(workingPath,
+                 "confIntDiamond plot for second research question (all data).png"),
+       type='cairo');
+
+```
+
+### Plot 3
+
+```{r fig.width=5, fig.height=5}
+
+diamondPlot(dat3[, 3:5], generateColors=c("red", "grey", "green"),
+            fullColorRange = totalrange) +
+  scale_x_continuous(limits=totalrange) +
+  # geom_vline(xintercept = -.2, color="grey") +
+  # geom_vline(xintercept =  .2, color="grey") +
+  # geom_vline(xintercept = -.5, color="grey") +
+  # geom_vline(xintercept =  .5, color="grey") +
+  # geom_vline(xintercept = -.8, color="grey") +
+  # geom_vline(xintercept =  .8, color="grey") +
+  theme_bw() + geom_vline(xintercept=0);
+
+plot3 <- diamondPlot(dat3[, 3:5]) +
+  theme_bw() + geom_vline(xintercept=0) +
+  # geom_vline(xintercept = -.2, color="grey") +
+  # geom_vline(xintercept =  .2, color="grey") +
+  # geom_vline(xintercept = -.5, color="grey") +
+  # geom_vline(xintercept =  .5, color="grey") +
+  # geom_vline(xintercept = -.8, color="grey") +
+  # geom_vline(xintercept =  .8, color="grey") +
+  scale_x_continuous(limits=totalrange, name="Effect size estimate") +
+  scale_y_continuous(breaks=1:nrow(dat3),
+                     labels=axisLabels,
+                     sec.axis=dup_axis(labels=ifelse(is.na(dat3$k), "(k=0)",
+                                                     paste0("(k=", dat3$k, ")")))) +
+  theme(axis.ticks.y = element_blank()) +
+  ggtitle("Category III:\nStrength vs alternative");
+
+ggsave(plot = plot3,
+       file.path(workingPath,
+                 "confIntDiamond plot for third research question (all data).png"),
+       type='cairo');
+
+```
+
+### Figure 2
+
+```{r fig.width=15, fig.height=5}
+
+plot4 <- grid.arrange(plot1, plot2, plot3, ncol=3);
+
+ggsave(plot = plot4,
+       width = 15, height=5,
+       file.path(workingPath,
+                 "Figure 2 - All confIntDiamond plots combined (all data).png"),
+       type='cairo');
+
+```
+
+## Removing Levinger 2007
+
+Because Levinger et al. (2007) only assessed acute effects (i.e. after only one training session), psychological effects can be expected to be different compared to those found in studies of effects of more long-term training, as commented by reviewer 2. Therefore, we repeat the analyses without Levinger2007.
+
+Reviewer 2 also remarked that conducting meta-analyses with few studies, especially if heterogeneity was high, is problematic. We acknowledge these problems, and therefore, will not report the results of the meta-analyses except for emphasizing this heterogeneity. We will, however, still use the technique of quantitative integration of study results to help make sense of the data. In other words, we use it as a reporting tool in the systematic review rather than as a meta-analytical technique.
+
+```{r}
+
+### Backup of data
+dat.full <- dat;
+
+### Removing Levinger
+dat.longterm <- dat[dat$studyID != 'Levinger2007', ];
+
+### Copying long term only selection to 'working version' of dat
+dat <- dat.longterm;
+
+### Now loop through the correlations and conduct the meta-analyses
+rma.withinStudy <- list();
+dat.rma <- list();
+rma.overStudies <- list();
+for (currentCorrelation in correlationCoefficients) {
+
+  ### Conduct and store within-study meta-analyses
+  rma.withinStudy[[paste0("r_", currentCorrelation)]] <-
+    by(dat, dat$study_category_var, function(dat) {
+    if (!all(is.na(dat[, paste0('es_v_', currentCorrelation)]))) {
+      return(tryCatch(rma(yi=dat$es, vi=dat[, paste0('es_v_', currentCorrelation)],
+                          method="ML"),
+                      error = function(e) {
+                        rma(yi=dat$es, vi=dat[, paste0('es_v_', currentCorrelation)],
+                            method="HE")
+                      }));
+    }
+  });
+
+  ### Extract effect sizes and variances
+  dat.rma[[paste0("r_", currentCorrelation)]] <-
+    ldply(rma.withinStudy[[paste0("r_", currentCorrelation)]], function(x) {
+      if(!is.null(x)) {
+        return(data.frame(yi=coef(x)[1], vi=vcov(x)[1]));
+      }
+    });
+
+  ### Split study/category/variable columns
+  dat.rma[[paste0("r_", currentCorrelation)]] <-
+    cbind(dat.rma[[paste0("r_", currentCorrelation)]],
+          matrix(unlist(strsplit(dat.rma[[paste0("r_", currentCorrelation)]][, '.id'], "_")),
+                 ncol=3, byrow=TRUE));
+  colnames(dat.rma[[paste0("r_", currentCorrelation)]]) <-
+    c('study_category_var', 'yi', 'vi', 'study', 'category', 'variable');
+
+  ### Add category_variable variable (because we should conduct different
+  ### meta-analyses for each variable, and for each category
+  dat.rma[[paste0("r_", currentCorrelation)]]$category_variable <-
+    paste0(dat.rma[[paste0("r_", currentCorrelation)]]$category,
+           "_",
+           dat.rma[[paste0("r_", currentCorrelation)]]$variable);
+
+  ### Conduct real over-study meta-analysis
+  rma.overStudies[[paste0("r_", currentCorrelation)]] <-
+    by(dat.rma[[paste0("r_", currentCorrelation)]],
+      dat.rma[[paste0("r_", currentCorrelation)]]$category_variable,
+      function(dat) {
+        return(rma(yi=dat$yi, vi=dat$vi));
+      });
+}
+
+### Write to text files
+for (currentR in correlationCoefficients) {
+  currentName = paste0("r_", currentR);
+  writeLines(capture.output(rma.withinStudy[[currentName]]),
+             file.path(workingPath,
+                       paste0('Within study meta-analyses for r of ',
+                              currentR, ' (long term data).txt')));
+  write.csv(dat.rma[[currentName]],
+            file.path(workingPath,
+                      paste0('Within study meta-analysis data for r of ',
+                             currentR, ' (long term data).csv')));
+  writeLines(capture.output(rma.overStudies[[currentName]]),
+             file.path(workingPath,
+                       paste0('Between study meta-analyses for r of ',
+                              currentR, ' (long term data).txt')));
+  for (currentMA in names(rma.overStudies[[currentName]])) {
+    png(file.path(workingPath, paste0("forest plot for ",
+                                   currentMA, " for r of ",
+                                   currentR, " (long term data).png")));
+    forest(rma.overStudies[[currentName]][[currentMA]]);
+    dev.off();
+    png(file.path(workingPath, paste0("funnel plot for ",
+                                      currentMA, " for r of ",
+                                      currentR, " (long term data).png")));
+    funnel(rma.overStudies[[currentName]][[currentMA]]);
+    dev.off();
+  }
+}
+
+### Extract confidence intervals and means, first looping over
+### the correlation sizes
+rma.overStudies.confInts <- ldply(rma.overStudies, .id='correlation', function(x) {
+  ### Then looping over the research question types
+  return(ldply(x, .id='variable', function (x) {
+    return(data.frame(lb=x$ci.lb, es=x$b, ub=x$ci.ub, k=x$k));
+  }));
+});
+
+write.csv(rma.overStudies.confInts,
+          file.path(workingPath,
+                    paste0('Within study meta-analysis confidence intervals (long term data).csv')));
+
+```
+
+## Figures
+
+### Preparations for figures
+
+```{r}
+
+### Extract those for the first research question and r=.3
+dat1 <- rma.overStudies.confInts[1:7, ]
+dat1$y <- 1:nrow(dat1);
+dat1$variable <- sub('.*_(.*)', '\\1', dat1$variable);
+dat1$variable <- gsub("(?<=\\b)([a-z])", "\\U\\1", tolower(dat1$variable), perl=TRUE);
+
+dat2 <- rma.overStudies.confInts[8:16, ]
+dat2$y <- 1:nrow(dat2);
+dat2$variable <- sub('.*_(.*)', '\\1', dat2$variable);
+dat2$variable <- gsub("(?<=\\b)([a-z])", "\\U\\1", tolower(dat2$variable), perl=TRUE);
+
+dat3 <- rma.overStudies.confInts[17:21, ]
+dat3$y <- 1:nrow(dat3);
+dat3$variable <- sub('.*_(.*)', '\\1', dat3$variable);
+dat3$variable <- gsub("(?<=\\b)([a-z])", "\\U\\1", tolower(dat3$variable), perl=TRUE);
+
+### Build full list of variable names
+allVarNames <- unique(c(dat1$variable, dat2$variable, dat3$variable));
+
+### Add missing variable names to each dataframe
+dat1 <- rbind.fill(dat1,
+                   data.frame(variable = setdiff(allVarNames, dat1$variable)));
+dat2 <- rbind.fill(dat2,
+                   data.frame(variable = setdiff(allVarNames, dat2$variable)));
+dat3 <- rbind.fill(dat3,
+                   data.frame(variable = setdiff(allVarNames, dat3$variable)));
+
+### Sort rows anti-alphabetically
+dat1 <- dat1[order(dat1$variable, decreasing=TRUE), ];
+dat2 <- dat2[order(dat2$variable, decreasing=TRUE), ];
+dat3 <- dat3[order(dat3$variable, decreasing=TRUE), ];
+
+### Replace 'Qol' with 'Quality of Life'
+dat1$variable[dat1$variable=='Qol'] <- 'Quality of Life';
+dat2$variable[dat2$variable=='Qol'] <- 'Quality of Life';
+dat3$variable[dat3$variable=='Qol'] <- 'Quality of Life';
+
+### Set variable names as rownames (for diamondPlot)
+row.names(dat1) <- dat1$variable;
+row.names(dat2) <- dat2$variable;
+row.names(dat3) <- dat3$variable;
+
+### Get minimum and maximum
+range1 <- range(dat1[, 3:5], na.rm=TRUE);
+range2 <- range(dat2[, 3:5], na.rm=TRUE);
+range3 <- range(dat3[, 3:5], na.rm=TRUE);
+totalrange <- range(c(range1, range2, range3));
+totalrange<- c(min(totalrange) - .1,
+               max(totalrange) + .1);
+
+axisLabels <- dat1$variable;
+axisLabels[axisLabels=='Outcome Expectations'] <- 'Outcome\nexpectations';
+axisLabels[axisLabels=='Disorders'] <- 'Psychological\ndisorders';
+axisLabels[axisLabels=='Quality of Life'] <- 'Quality of life';
+axisLabels[axisLabels=='Self-Efficacy'] <- 'Self-efficacy';
+axisLabels[axisLabels=='Self-Esteem'] <- 'Self-esteem';
+
+```
+
+### Plot 1
+
+```{r fig.width=5, fig.height=5}
+
+diamondPlot(dat1[, 3:5], generateColors=c("red", "grey", "green"),
+            fullColorRange = totalrange) +
+  # geom_vline(xintercept = -.2, color="grey") +
+  # geom_vline(xintercept =  .2, color="grey") +
+  # geom_vline(xintercept = -.5, color="grey") +
+  # geom_vline(xintercept =  .5, color="grey") +
+  # geom_vline(xintercept = -.8, color="grey") +
+  # geom_vline(xintercept =  .8, color="grey") +
+  scale_x_continuous(limits=totalrange) +
+  theme_bw() + geom_vline(xintercept=0);
+
+plot1 <- diamondPlot(dat1[, 3:5]) +
+  theme_bw() + geom_vline(xintercept=0) +
+  scale_x_continuous(limits=totalrange, name="Effect size estimate") +
+  # geom_vline(xintercept = -.2, color="grey") +
+  # geom_vline(xintercept =  .2, color="grey") +
+  # geom_vline(xintercept = -.5, color="grey") +
+  # geom_vline(xintercept =  .5, color="grey") +
+  # geom_vline(xintercept = -.8, color="grey") +
+  # geom_vline(xintercept =  .8, color="grey") +
+  scale_y_continuous(breaks=1:length(axisLabels),
+                     labels=axisLabels,
+                     sec.axis=dup_axis(labels=ifelse(is.na(dat1$k), "(k=0)",
+                                                     paste0("(k=", dat1$k, ")")))) +
+  theme(axis.ticks.y = element_blank()) +
+  ggtitle("Category I:\nStrength vs passive control");
+
+grid.newpage();
+grid.draw(plot1);
+
+ggsave(plot = plot1,
+       file.path(workingPath,
+                 "confIntDiamond plot for first research question (long term data).png"),
+       type='cairo');
+
+```
+
+### Plot 2
+
+```{r fig.width=5, fig.height=5}
+
+diamondPlot(dat2[, 3:5], generateColors=c("red", "grey", "green"),
+            fullColorRange = totalrange) +
+  scale_x_continuous(limits=totalrange) +
+  # geom_vline(xintercept = -.2, color="grey") +
+  # geom_vline(xintercept =  .2, color="grey") +
+  # geom_vline(xintercept = -.5, color="grey") +
+  # geom_vline(xintercept =  .5, color="grey") +
+  # geom_vline(xintercept = -.8, color="grey") +
+  # geom_vline(xintercept =  .8, color="grey") +
+  theme_bw() + geom_vline(xintercept=0);
+
+plot2 <- diamondPlot(dat2[, 3:5]) +
+  theme_bw() + geom_vline(xintercept=0) +
+  # geom_vline(xintercept = -.2, color="grey") +
+  # geom_vline(xintercept =  .2, color="grey") +
+  # geom_vline(xintercept = -.5, color="grey") +
+  # geom_vline(xintercept =  .5, color="grey") +
+  # geom_vline(xintercept = -.8, color="grey") +
+  # geom_vline(xintercept =  .8, color="grey") +
+  scale_x_continuous(limits=totalrange, name="Effect size estimate") +
+  scale_y_continuous(breaks=1:length(axisLabels),
+                     labels=axisLabels,
+                     sec.axis=dup_axis(labels=ifelse(is.na(dat2$k), "(k=0)",
+                                                     paste0("(k=", dat2$k, ")")))) +
+  theme(axis.ticks.y = element_blank()) +
+  ggtitle("Category II:\nStrength + active control vs active control");
+
+grid.newpage();
+grid.draw(plot2);
+
+ggsave(plot = plot2,
+       file.path(workingPath,
+                 "confIntDiamond plot for second research question (long term data).png"),
+       type='cairo');
+
+```
+
+### Plot 3
+
+```{r fig.width=5, fig.height=5}
+
+diamondPlot(dat3[, 3:5], generateColors=c("red", "grey", "green"),
+            fullColorRange = totalrange) +
+  scale_x_continuous(limits=totalrange) +
+  # geom_vline(xintercept = -.2, color="grey") +
+  # geom_vline(xintercept =  .2, color="grey") +
+  # geom_vline(xintercept = -.5, color="grey") +
+  # geom_vline(xintercept =  .5, color="grey") +
+  # geom_vline(xintercept = -.8, color="grey") +
+  # geom_vline(xintercept =  .8, color="grey") +
+  theme_bw() + geom_vline(xintercept=0);
+
+plot3 <- diamondPlot(dat3[, 3:5]) +
+  theme_bw() + geom_vline(xintercept=0) +
+  # geom_vline(xintercept = -.2, color="grey") +
+  # geom_vline(xintercept =  .2, color="grey") +
+  # geom_vline(xintercept = -.5, color="grey") +
+  # geom_vline(xintercept =  .5, color="grey") +
+  # geom_vline(xintercept = -.8, color="grey") +
+  # geom_vline(xintercept =  .8, color="grey") +
+  scale_x_continuous(limits=totalrange, name="Effect size estimate") +
+  scale_y_continuous(breaks=1:nrow(dat3),
+                     labels=axisLabels,
+                     sec.axis=dup_axis(labels=ifelse(is.na(dat3$k), "(k=0)",
+                                                     paste0("(k=", dat3$k, ")")))) +
+  theme(axis.ticks.y = element_blank()) +
+  ggtitle("Category III:\nStrength vs alternative");
+
+ggsave(plot = plot3,
+       file.path(workingPath,
+                 "confIntDiamond plot for third research question (long term data).png"),
+       type='cairo');
+
+```
+
+### Figure 2
+
+```{r fig.width=15, fig.height=5}
+
+plot4 <- grid.arrange(plot1, plot2, plot3, ncol=3);
+
+ggsave(plot = plot4,
+       width = 15, height=5,
+       file.path(workingPath,
+                 "Figure 2 - All confIntDiamond plots combined (long term data).png"),
+       type='cairo');
+
+```
+
+### Figure 2, split by age
+
+```{r fig.width=15, fig.height=5}
+
+### Again, loop through the correlations and conduct the meta-analyses
+rma.overStudies.young <- list();
+rma.overStudies.old <- list();
+for (currentCorrelation in correlationCoefficients) {
+
+  ### Conduct real over-study meta-analysis for young participants
+  rma.overStudies.young[[paste0("r_", currentCorrelation)]] <-
+    by(dat.rma[[paste0("r_", currentCorrelation)]],
+      dat.rma[[paste0("r_", currentCorrelation)]]$category_variable,
+      function(dat) {
+        tmpDat <- dat[dat$study %in% c('Goldfield2015', 'Schranz2014', 'Yu2001'), ];
+        if (nrow(tmpDat) > 0)  {
+          return(rma(yi=tmpDat$yi, vi=tmpDat$vi));
+        } else {
+          return(NULL)
+        }
+      });
+
+  ### Conduct real over-study meta-analysis for old participants
+  rma.overStudies.old[[paste0("r_", currentCorrelation)]] <-
+    by(dat.rma[[paste0("r_", currentCorrelation)]],
+      dat.rma[[paste0("r_", currentCorrelation)]]$category_variable,
+      function(dat) {
+        tmpDat <- dat[!(dat$study %in% c('Goldfield2015', 'Schranz2014', 'Yu2001')), ];
+        if (nrow(tmpDat) > 0)  {
+          return(rma(yi=tmpDat$yi, vi=tmpDat$vi));
+        } else {
+          return(NULL)
+        }
+      });  
+}
+
+### Extract confidence intervals and means, first looping over
+### the correlation sizes
+rma.overStudies.young.confInts <- ldply(rma.overStudies.young, .id='correlation', function(x) {
+  ### Then looping over the research question types
+  return(ldply(x, .id='variable', function (x) {
+    return(data.frame(lb=x$ci.lb, es=x$b, ub=x$ci.ub, k=x$k));
+  }));
+});
+rma.overStudies.old.confInts <- ldply(rma.overStudies.old, .id='correlation', function(x) {
+  ### Then looping over the research question types
+  return(ldply(x, .id='variable', function (x) {
+    return(data.frame(lb=x$ci.lb, es=x$b, ub=x$ci.ub, k=x$k));
+  }));
+});
+
+### Prepare for plotting
+
+### Extract those for the first research question and r=.3; for young participants
+dat1.young <- rma.overStudies.young.confInts[1:6, ]
+dat1.young$y <- 1:nrow(dat1.young);
+dat1.young$variable <- sub('.*_(.*)', '\\1', dat1.young$variable);
+dat1.young$variable <- gsub("(?<=\\b)([a-z])", "\\U\\1", tolower(dat1.young$variable), perl=TRUE);
+
+dat2.young <- rma.overStudies.young.confInts[7:10, ]
+dat2.young$y <- 1:nrow(dat2.young);
+dat2.young$variable <- sub('.*_(.*)', '\\1', dat2.young$variable);
+dat2.young$variable <- gsub("(?<=\\b)([a-z])", "\\U\\1", tolower(dat2.young$variable), perl=TRUE);
+
+dat3.young <- rma.overStudies.young.confInts[11:13, ]
+dat3.young$y <- 1:nrow(dat3.young);
+dat3.young$variable <- sub('.*_(.*)', '\\1', dat3.young$variable);
+dat3.young$variable <- gsub("(?<=\\b)([a-z])", "\\U\\1", tolower(dat3.young$variable), perl=TRUE);
+
+### Extract those for the first research question and r=.3; for old participants
+dat1.old <- rma.overStudies.old.confInts[1:5, ]
+dat1.old$y <- 1:nrow(dat1.old);
+dat1.old$variable <- sub('.*_(.*)', '\\1', dat1.old$variable);
+dat1.old$variable <- gsub("(?<=\\b)([a-z])", "\\U\\1", tolower(dat1.old$variable), perl=TRUE);
+
+dat2.old <- rma.overStudies.old.confInts[6:13, ]
+dat2.old$y <- 1:nrow(dat2.old);
+dat2.old$variable <- sub('.*_(.*)', '\\1', dat2.old$variable);
+dat2.old$variable <- gsub("(?<=\\b)([a-z])", "\\U\\1", tolower(dat2.old$variable), perl=TRUE);
+
+dat3.old <- rma.overStudies.old.confInts[14:16, ]
+dat3.old$y <- 1:nrow(dat3.old);
+dat3.old$variable <- sub('.*_(.*)', '\\1', dat3.old$variable);
+dat3.old$variable <- gsub("(?<=\\b)([a-z])", "\\U\\1", tolower(dat3.old$variable), perl=TRUE);
+
+### Build full list of variable names
+#allVarNames <- unique(c(dat1$variable, dat2$variable, dat3$variable));
+### We will reuse the list generated earlier.
+
+### Add missing variable names to each dataframe
+dat1.young <- rbind.fill(dat1.young,
+                   data.frame(variable = setdiff(allVarNames, dat1.young$variable)));
+dat2.young <- rbind.fill(dat2.young,
+                   data.frame(variable = setdiff(allVarNames, dat2.young$variable)));
+dat3.young <- rbind.fill(dat3.young,
+                   data.frame(variable = setdiff(allVarNames, dat3.young$variable)));
+dat1.old <- rbind.fill(dat1.old,
+                   data.frame(variable = setdiff(allVarNames, dat1.old$variable)));
+dat2.old <- rbind.fill(dat2.old,
+                   data.frame(variable = setdiff(allVarNames, dat2.old$variable)));
+dat3.old <- rbind.fill(dat3.old,
+                   data.frame(variable = setdiff(allVarNames, dat3.old$variable)));
+
+### Sort rows anti-alphabetically
+dat1.young <- dat1.young[order(dat1.young$variable, decreasing=TRUE), ];
+dat2.young <- dat2.young[order(dat2.young$variable, decreasing=TRUE), ];
+dat3.young <- dat3.young[order(dat3.young$variable, decreasing=TRUE), ];
+dat1.old <- dat1.old[order(dat1.old$variable, decreasing=TRUE), ];
+dat2.old <- dat2.old[order(dat2.old$variable, decreasing=TRUE), ];
+dat3.old <- dat3.old[order(dat3.old$variable, decreasing=TRUE), ];
+
+### Replace 'Qol' with 'Quality of Life'
+dat1.young$variable[dat1.young$variable=='Qol'] <- 'Quality of Life';
+dat2.young$variable[dat2.young$variable=='Qol'] <- 'Quality of Life';
+dat3.young$variable[dat3.young$variable=='Qol'] <- 'Quality of Life';
+dat1.old$variable[dat1.old$variable=='Qol'] <- 'Quality of Life';
+dat2.old$variable[dat2.old$variable=='Qol'] <- 'Quality of Life';
+dat3.old$variable[dat3.old$variable=='Qol'] <- 'Quality of Life';
+
+### Set variable names as rownames (for diamondPlot)
+row.names(dat1.young) <- dat1.young$variable;
+row.names(dat2.young) <- dat2.young$variable;
+row.names(dat3.young) <- dat3.young$variable;
+row.names(dat1.old) <- dat1.old$variable;
+row.names(dat2.old) <- dat2.old$variable;
+row.names(dat3.old) <- dat3.old$variable;
+
+### totalRange and axisLabels have already been set
+
+dat1.ks <- gsub("NA", '0', paste0("(k = ", dat1.young$k, " & ", dat1.old$k, ")"));
+dat2.ks <- gsub("NA", '0', paste0("(k = ", dat2.young$k, " & ", dat2.old$k, ")"));
+dat3.ks <- gsub("NA", '0', paste0("(k = ", dat3.young$k, " & ", dat3.old$k, ")"));
+
+plot1.byage <- diamondPlot(dat1.young[, 3:5], alpha=0) +
+  diamondPlot(dat1.old[, 3:5], alpha=0.25, returnLayerOnly = TRUE) +
+  theme_bw() + geom_vline(xintercept=0) +
+  scale_x_continuous(limits=totalrange, name="Effect size estimate") +
+  scale_y_continuous(breaks=1:length(axisLabels),
+                     labels=axisLabels,
+                     sec.axis=dup_axis(labels=dat1.ks)) +
+  theme(axis.ticks.y = element_blank()) +
+  ggtitle("Category I:\nStrength vs passive control");
+
+plot2.byage <- diamondPlot(dat2.young[, 3:5], alpha=0) +
+  diamondPlot(dat2.old[, 3:5], alpha=0.25, returnLayerOnly = TRUE) +
+  theme_bw() + geom_vline(xintercept=0) +
+  scale_x_continuous(limits=totalrange, name="Effect size estimate") +
+  scale_y_continuous(breaks=1:length(axisLabels),
+                     labels=axisLabels,
+                     sec.axis=dup_axis(labels=dat2.ks)) +
+  theme(axis.ticks.y = element_blank()) +
+  ggtitle("Category II:\nStrength + active control vs active control");
+
+plot3.byage <- diamondPlot(dat3.young[, 3:5], alpha=0) +
+  diamondPlot(dat3.old[, 3:5], alpha=0.25, returnLayerOnly = TRUE) +
+  theme_bw() + geom_vline(xintercept=0) +
+  scale_x_continuous(limits=totalrange, name="Effect size estimate") +
+  scale_y_continuous(breaks=1:nrow(dat3),
+                     labels=axisLabels,
+                     sec.axis=dup_axis(labels=dat3.ks)) +
+  theme(axis.ticks.y = element_blank()) +
+  ggtitle("Category III:\nStrength vs alternative");
+
+plot4.byage <- grid.arrange(plot1.byage, plot2.byage, plot3.byage, ncol=3);
+
+ggsave(plot = plot4.byage,
+       width = 15, height=5,
+       file.path(workingPath,
+                 "Figure 2 - All confIntDiamond plots combined, split by age (long term data).png"),
+       type='cairo');
+
+```
+

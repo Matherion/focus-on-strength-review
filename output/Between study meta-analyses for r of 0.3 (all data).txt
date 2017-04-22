@@ -1,0 +1,405 @@
+dat.rma[[paste0("r_", currentCorrelation)]]$category_variable: 1_disorders
+
+Random-Effects Model (k = 2; tau^2 estimator: REML)
+
+tau^2 (estimated amount of total heterogeneity): 0 (SE = 0.2410)
+tau (square root of estimated tau^2 value):      0
+I^2 (total heterogeneity / total variability):   0.00%
+H^2 (total variability / sampling variability):  1.00
+
+Test for Heterogeneity: 
+Q(df = 1) = 0.5252, p-val = 0.4686
+
+Model Results:
+
+estimate       se     zval     pval    ci.lb    ci.ub          
+ -0.7152   0.2872  -2.4900   0.0128  -1.2781  -0.1522        * 
+
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1 
+
+-------------------------------------------------------- 
+dat.rma[[paste0("r_", currentCorrelation)]]$category_variable: 1_mood
+
+Random-Effects Model (k = 2; tau^2 estimator: REML)
+
+tau^2 (estimated amount of total heterogeneity): 0.0355 (SE = 0.0706)
+tau (square root of estimated tau^2 value):      0.1884
+I^2 (total heterogeneity / total variability):   71.12%
+H^2 (total variability / sampling variability):  3.46
+
+Test for Heterogeneity: 
+Q(df = 1) = 3.4631, p-val = 0.0628
+
+Model Results:
+
+estimate       se     zval     pval    ci.lb    ci.ub          
+ -0.0776   0.1576  -0.4921   0.6226  -0.3865   0.2313          
+
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1 
+
+-------------------------------------------------------- 
+dat.rma[[paste0("r_", currentCorrelation)]]$category_variable: 1_Outcome expectations
+
+Fixed-Effects Model (k = 1)
+
+Test for Heterogeneity: 
+Q(df = 0) = 0.0000, p-val = 1.0000
+
+Model Results:
+
+estimate       se     zval     pval    ci.lb    ci.ub          
+ -0.1571   0.3387  -0.4640   0.6427  -0.8210   0.5067          
+
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1 
+
+-------------------------------------------------------- 
+dat.rma[[paste0("r_", currentCorrelation)]]$category_variable: 1_QOL
+
+Random-Effects Model (k = 3; tau^2 estimator: REML)
+
+tau^2 (estimated amount of total heterogeneity): 0.1085 (SE = 0.2151)
+tau (square root of estimated tau^2 value):      0.3294
+I^2 (total heterogeneity / total variability):   51.34%
+H^2 (total variability / sampling variability):  2.06
+
+Test for Heterogeneity: 
+Q(df = 2) = 4.0981, p-val = 0.1289
+
+Model Results:
+
+estimate       se     zval     pval    ci.lb    ci.ub          
+  0.5795   0.2662   2.1773   0.0295   0.0578   1.1012        * 
+
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1 
+
+-------------------------------------------------------- 
+dat.rma[[paste0("r_", currentCorrelation)]]$category_variable: 1_self-efficacy
+
+Random-Effects Model (k = 2; tau^2 estimator: REML)
+
+tau^2 (estimated amount of total heterogeneity): 0.0139 (SE = 0.0770)
+tau (square root of estimated tau^2 value):      0.1181
+I^2 (total heterogeneity / total variability):   25.61%
+H^2 (total variability / sampling variability):  1.34
+
+Test for Heterogeneity: 
+Q(df = 1) = 1.3442, p-val = 0.2463
+
+Model Results:
+
+estimate       se     zval     pval    ci.lb    ci.ub          
+  0.6079   0.1570   3.8732   0.0001   0.3003   0.9156      *** 
+
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1 
+
+-------------------------------------------------------- 
+dat.rma[[paste0("r_", currentCorrelation)]]$category_variable: 1_self-esteem
+
+Random-Effects Model (k = 2; tau^2 estimator: REML)
+
+tau^2 (estimated amount of total heterogeneity): 0.0063 (SE = 0.0537)
+tau (square root of estimated tau^2 value):      0.0793
+I^2 (total heterogeneity / total variability):   16.57%
+H^2 (total variability / sampling variability):  1.20
+
+Test for Heterogeneity: 
+Q(df = 1) = 1.1987, p-val = 0.2736
+
+Model Results:
+
+estimate       se     zval     pval    ci.lb    ci.ub          
+  0.3326   0.1014   3.2792   0.0010   0.1338   0.5314       ** 
+
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1 
+
+-------------------------------------------------------- 
+dat.rma[[paste0("r_", currentCorrelation)]]$category_variable: 1_strength
+
+Random-Effects Model (k = 6; tau^2 estimator: REML)
+
+tau^2 (estimated amount of total heterogeneity): 0.1822 (SE = 0.1866)
+tau (square root of estimated tau^2 value):      0.4268
+I^2 (total heterogeneity / total variability):   66.52%
+H^2 (total variability / sampling variability):  2.99
+
+Test for Heterogeneity: 
+Q(df = 5) = 17.1037, p-val = 0.0043
+
+Model Results:
+
+estimate       se     zval     pval    ci.lb    ci.ub          
+  1.2467   0.2240   5.5647   <.0001   0.8076   1.6858      *** 
+
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1 
+
+-------------------------------------------------------- 
+dat.rma[[paste0("r_", currentCorrelation)]]$category_variable: 2_disorders
+
+Fixed-Effects Model (k = 1)
+
+Test for Heterogeneity: 
+Q(df = 0) = 0.0000, p-val = 1.0000
+
+Model Results:
+
+estimate       se     zval     pval    ci.lb    ci.ub          
+ -0.7555   0.2277  -3.3183   0.0009  -1.2018  -0.3093      *** 
+
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1 
+
+-------------------------------------------------------- 
+dat.rma[[paste0("r_", currentCorrelation)]]$category_variable: 2_inhibition
+
+Random-Effects Model (k = 2; tau^2 estimator: REML)
+
+tau^2 (estimated amount of total heterogeneity): 0 (SE = 0.0626)
+tau (square root of estimated tau^2 value):      0
+I^2 (total heterogeneity / total variability):   0.00%
+H^2 (total variability / sampling variability):  1.00
+
+Test for Heterogeneity: 
+Q(df = 1) = 0.0045, p-val = 0.9465
+
+Model Results:
+
+estimate       se     zval     pval    ci.lb    ci.ub          
+  0.2784   0.1234   2.2562   0.0241   0.0365   0.5202        * 
+
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1 
+
+-------------------------------------------------------- 
+dat.rma[[paste0("r_", currentCorrelation)]]$category_variable: 2_mood
+
+Fixed-Effects Model (k = 1)
+
+Test for Heterogeneity: 
+Q(df = 0) = 0.0000, p-val = 1.0000
+
+Model Results:
+
+estimate       se     zval     pval    ci.lb    ci.ub          
+  0.1937   0.1723   1.1238   0.2611  -0.1441   0.5314          
+
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1 
+
+-------------------------------------------------------- 
+dat.rma[[paste0("r_", currentCorrelation)]]$category_variable: 2_Outcome expectations
+
+Random-Effects Model (k = 2; tau^2 estimator: REML)
+
+tau^2 (estimated amount of total heterogeneity): 0.1732 (SE = 0.2954)
+tau (square root of estimated tau^2 value):      0.4161
+I^2 (total heterogeneity / total variability):   82.90%
+H^2 (total variability / sampling variability):  5.85
+
+Test for Heterogeneity: 
+Q(df = 1) = 5.8488, p-val = 0.0156
+
+Model Results:
+
+estimate       se     zval     pval    ci.lb    ci.ub          
+  0.3833   0.3222   1.1897   0.2342  -0.2482   1.0148          
+
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1 
+
+-------------------------------------------------------- 
+dat.rma[[paste0("r_", currentCorrelation)]]$category_variable: 2_QOL
+
+Random-Effects Model (k = 3; tau^2 estimator: REML)
+
+tau^2 (estimated amount of total heterogeneity): 0.0000 (SE = 0.0114)
+tau (square root of estimated tau^2 value):      0.0012
+I^2 (total heterogeneity / total variability):   0.01%
+H^2 (total variability / sampling variability):  1.00
+
+Test for Heterogeneity: 
+Q(df = 2) = 1.9789, p-val = 0.3718
+
+Model Results:
+
+estimate       se     zval     pval    ci.lb    ci.ub          
+  0.0984   0.0611   1.6104   0.1073  -0.0214   0.2182          
+
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1 
+
+-------------------------------------------------------- 
+dat.rma[[paste0("r_", currentCorrelation)]]$category_variable: 2_self-efficacy
+
+Random-Effects Model (k = 2; tau^2 estimator: REML)
+
+tau^2 (estimated amount of total heterogeneity): 0 (SE = 0.0522)
+tau (square root of estimated tau^2 value):      0
+I^2 (total heterogeneity / total variability):   0.00%
+H^2 (total variability / sampling variability):  1.00
+
+Test for Heterogeneity: 
+Q(df = 1) = 0.0794, p-val = 0.7782
+
+Model Results:
+
+estimate       se     zval     pval    ci.lb    ci.ub          
+  0.1274   0.1099   1.1594   0.2463  -0.0880   0.3428          
+
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1 
+
+-------------------------------------------------------- 
+dat.rma[[paste0("r_", currentCorrelation)]]$category_variable: 2_self-esteem
+
+Random-Effects Model (k = 4; tau^2 estimator: REML)
+
+tau^2 (estimated amount of total heterogeneity): 0.0000 (SE = 0.0081)
+tau (square root of estimated tau^2 value):      0.0020
+I^2 (total heterogeneity / total variability):   0.03%
+H^2 (total variability / sampling variability):  1.00
+
+Test for Heterogeneity: 
+Q(df = 3) = 2.7720, p-val = 0.4281
+
+Model Results:
+
+estimate       se     zval     pval    ci.lb    ci.ub          
+  0.1177   0.0502   2.3460   0.0190   0.0194   0.2160        * 
+
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1 
+
+-------------------------------------------------------- 
+dat.rma[[paste0("r_", currentCorrelation)]]$category_variable: 2_strength
+
+Random-Effects Model (k = 5; tau^2 estimator: REML)
+
+tau^2 (estimated amount of total heterogeneity): 0.3693 (SE = 0.3931)
+tau (square root of estimated tau^2 value):      0.6077
+I^2 (total heterogeneity / total variability):   84.54%
+H^2 (total variability / sampling variability):  6.47
+
+Test for Heterogeneity: 
+Q(df = 4) = 21.0643, p-val = 0.0003
+
+Model Results:
+
+estimate       se     zval     pval    ci.lb    ci.ub          
+  0.2929   0.3501   0.8366   0.4028  -0.3933   0.9791          
+
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1 
+
+-------------------------------------------------------- 
+dat.rma[[paste0("r_", currentCorrelation)]]$category_variable: 2_stress
+
+Fixed-Effects Model (k = 1)
+
+Test for Heterogeneity: 
+Q(df = 0) = 0.0000, p-val = 1.0000
+
+Model Results:
+
+estimate       se     zval     pval    ci.lb    ci.ub          
+  0.0103   0.2421   0.0424   0.9662  -0.4642   0.4847          
+
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1 
+
+-------------------------------------------------------- 
+dat.rma[[paste0("r_", currentCorrelation)]]$category_variable: 3_disorders
+
+Fixed-Effects Model (k = 1)
+
+Test for Heterogeneity: 
+Q(df = 0) = 0.0000, p-val = 1.0000
+
+Model Results:
+
+estimate       se     zval     pval    ci.lb    ci.ub          
+  0.6173   0.3740   1.6505   0.0988  -0.1158   1.3504        . 
+
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1 
+
+-------------------------------------------------------- 
+dat.rma[[paste0("r_", currentCorrelation)]]$category_variable: 3_mood
+
+Random-Effects Model (k = 2; tau^2 estimator: REML)
+
+tau^2 (estimated amount of total heterogeneity): 0.0670 (SE = 0.1131)
+tau (square root of estimated tau^2 value):      0.2588
+I^2 (total heterogeneity / total variability):   83.69%
+H^2 (total variability / sampling variability):  6.13
+
+Test for Heterogeneity: 
+Q(df = 1) = 6.1311, p-val = 0.0133
+
+Model Results:
+
+estimate       se     zval     pval    ci.lb    ci.ub          
+ -0.1825   0.1993  -0.9158   0.3597  -0.5731   0.2081          
+
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1 
+
+-------------------------------------------------------- 
+dat.rma[[paste0("r_", currentCorrelation)]]$category_variable: 3_QOL
+
+Fixed-Effects Model (k = 1)
+
+Test for Heterogeneity: 
+Q(df = 0) = 0.0000, p-val = 1.0000
+
+Model Results:
+
+estimate       se     zval     pval    ci.lb    ci.ub          
+  0.5886   0.4529   1.2995   0.1938  -0.2991   1.4763          
+
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1 
+
+-------------------------------------------------------- 
+dat.rma[[paste0("r_", currentCorrelation)]]$category_variable: 3_self-esteem
+
+Fixed-Effects Model (k = 1)
+
+Test for Heterogeneity: 
+Q(df = 0) = 0.0000, p-val = 1.0000
+
+Model Results:
+
+estimate       se     zval     pval    ci.lb    ci.ub          
+  0.1664   0.0787   2.1149   0.0344   0.0122   0.3205        * 
+
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1 
+
+-------------------------------------------------------- 
+dat.rma[[paste0("r_", currentCorrelation)]]$category_variable: 3_strength
+
+Random-Effects Model (k = 2; tau^2 estimator: REML)
+
+tau^2 (estimated amount of total heterogeneity): 0 (SE = 0.3637)
+tau (square root of estimated tau^2 value):      0
+I^2 (total heterogeneity / total variability):   0.00%
+H^2 (total variability / sampling variability):  1.00
+
+Test for Heterogeneity: 
+Q(df = 1) = 0.0129, p-val = 0.9096
+
+Model Results:
+
+estimate       se     zval     pval    ci.lb    ci.ub          
+  0.4497   0.2171   2.0711   0.0383   0.0241   0.8752        * 
+
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1 
+

@@ -1,0 +1,1000 @@
+dat$study_category_var: davis2008_2_inhibition
+
+Random-Effects Model (k = 3; tau^2 estimator: ML)
+
+tau^2 (estimated amount of total heterogeneity): 0 (SE = 0.1691)
+tau (square root of estimated tau^2 value):      0
+I^2 (total heterogeneity / total variability):   0.00%
+H^2 (total variability / sampling variability):  1.00
+
+Test for Heterogeneity: 
+Q(df = 2) = 0.2503, p-val = 0.8824
+
+Model Results:
+
+estimate       se     zval     pval    ci.lb    ci.ub          
+  0.2628   0.2627   1.0003   0.3172  -0.2521   0.7777          
+
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1 
+
+-------------------------------------------------------- 
+dat$study_category_var: davis2008_2_Outcome expectations
+
+Random-Effects Model (k = 4; tau^2 estimator: ML)
+
+tau^2 (estimated amount of total heterogeneity): 0 (SE = 0.1468)
+tau (square root of estimated tau^2 value):      0
+I^2 (total heterogeneity / total variability):   0.00%
+H^2 (total variability / sampling variability):  1.00
+
+Test for Heterogeneity: 
+Q(df = 3) = 0.5856, p-val = 0.8997
+
+Model Results:
+
+estimate       se     zval     pval    ci.lb    ci.ub          
+  0.7315   0.2278   3.2114   0.0013   0.2851   1.1780       ** 
+
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1 
+
+-------------------------------------------------------- 
+dat$study_category_var: davis2008_2_self-efficacy
+
+Random-Effects Model (k = 14; tau^2 estimator: ML)
+
+tau^2 (estimated amount of total heterogeneity): 0 (SE = 0.0805)
+tau (square root of estimated tau^2 value):      0
+I^2 (total heterogeneity / total variability):   0.00%
+H^2 (total variability / sampling variability):  1.00
+
+Test for Heterogeneity: 
+Q(df = 13) = 4.4258, p-val = 0.9858
+
+Model Results:
+
+estimate       se     zval     pval    ci.lb    ci.ub          
+  0.1432   0.1234   1.1609   0.2457  -0.0986   0.3850          
+
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1 
+
+-------------------------------------------------------- 
+dat$study_category_var: davis2008_2_self-esteem
+
+Random-Effects Model (k = 11; tau^2 estimator: ML)
+
+tau^2 (estimated amount of total heterogeneity): 0.0427 (SE = 0.1064)
+tau (square root of estimated tau^2 value):      0.2067
+I^2 (total heterogeneity / total variability):   17.11%
+H^2 (total variability / sampling variability):  1.21
+
+Test for Heterogeneity: 
+Q(df = 10) = 13.1698, p-val = 0.2143
+
+Model Results:
+
+estimate       se     zval     pval    ci.lb    ci.ub          
+  0.3481   0.1506   2.3109   0.0208   0.0529   0.6433        * 
+
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1 
+
+-------------------------------------------------------- 
+dat$study_category_var: davis2008_2_strength
+
+Random-Effects Model (k = 4; tau^2 estimator: ML)
+
+tau^2 (estimated amount of total heterogeneity): 3.2856 (SE = 2.4942)
+tau (square root of estimated tau^2 value):      1.8126
+I^2 (total heterogeneity / total variability):   93.15%
+H^2 (total variability / sampling variability):  14.60
+
+Test for Heterogeneity: 
+Q(df = 3) = 59.3117, p-val < .0001
+
+Model Results:
+
+estimate       se     zval     pval    ci.lb    ci.ub          
+ -1.0743   0.9391  -1.1440   0.2526  -2.9148   0.7662          
+
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1 
+
+-------------------------------------------------------- 
+dat$study_category_var: fonzi2008_2_QOL
+
+Random-Effects Model (k = 8; tau^2 estimator: ML)
+
+tau^2 (estimated amount of total heterogeneity): 0 (SE = 0.0855)
+tau (square root of estimated tau^2 value):      0
+I^2 (total heterogeneity / total variability):   0.00%
+H^2 (total variability / sampling variability):  1.00
+
+Test for Heterogeneity: 
+Q(df = 7) = 4.3145, p-val = 0.7429
+
+Model Results:
+
+estimate       se     zval     pval    ci.lb    ci.ub          
+ -0.0684   0.1462  -0.4675   0.6402  -0.3550   0.2182          
+
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1 
+
+-------------------------------------------------------- 
+dat$study_category_var: fonzi2008_2_strength
+
+Random-Effects Model (k = 4; tau^2 estimator: ML)
+
+tau^2 (estimated amount of total heterogeneity): 0 (SE = 0.1289)
+tau (square root of estimated tau^2 value):      0
+I^2 (total heterogeneity / total variability):   0.00%
+H^2 (total variability / sampling variability):  1.00
+
+Test for Heterogeneity: 
+Q(df = 3) = 0.4362, p-val = 0.9327
+
+Model Results:
+
+estimate       se     zval     pval    ci.lb    ci.ub          
+ -0.0382   0.2135  -0.1789   0.8580  -0.4567   0.3803          
+
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1 
+
+-------------------------------------------------------- 
+dat$study_category_var: Ghroubi2009_2_disorders
+
+Random-Effects Model (k = 2; tau^2 estimator: ML)
+
+tau^2 (estimated amount of total heterogeneity): 0 (SE = 0.1037)
+tau (square root of estimated tau^2 value):      0
+I^2 (total heterogeneity / total variability):   0.00%
+H^2 (total variability / sampling variability):  1.00
+
+Test for Heterogeneity: 
+Q(df = 1) = 0.4291, p-val = 0.5124
+
+Model Results:
+
+estimate       se     zval     pval    ci.lb    ci.ub          
+ -0.7555   0.2277  -3.3183   0.0009  -1.2018  -0.3093      *** 
+
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1 
+
+-------------------------------------------------------- 
+dat$study_category_var: Ghroubi2009_2_QOL
+NULL
+-------------------------------------------------------- 
+dat$study_category_var: Ghroubi2009_2_strength
+
+Random-Effects Model (k = 7; tau^2 estimator: ML)
+
+tau^2 (estimated amount of total heterogeneity): 23533019285.4170 (SE = 12578927920.3392)
+tau (square root of estimated tau^2 value):      153404.7564
+I^2 (total heterogeneity / total variability):   100.00%
+H^2 (total variability / sampling variability):  10371950859857296.00
+
+Test for Heterogeneity: 
+Q(df = 6) = 52995475698875040.0000, p-val < .0001
+
+Model Results:
+
+   estimate          se        zval        pval       ci.lb       ci.ub 
+114582.0038  57981.5479      1.9762      0.0481    940.2581 228223.7494 
+            
+          * 
+
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1 
+
+-------------------------------------------------------- 
+dat$study_category_var: Goldfield2015_1_mood
+
+Random-Effects Model (k = 6; tau^2 estimator: ML)
+
+tau^2 (estimated amount of total heterogeneity): 0.0302 (SE = 0.0386)
+tau (square root of estimated tau^2 value):      0.1739
+I^2 (total heterogeneity / total variability):   45.24%
+H^2 (total variability / sampling variability):  1.83
+
+Test for Heterogeneity: 
+Q(df = 5) = 10.9569, p-val = 0.0522
+
+Model Results:
+
+estimate       se     zval     pval    ci.lb    ci.ub          
+  0.0700   0.1056   0.6636   0.5070  -0.1369   0.2770          
+
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1 
+
+-------------------------------------------------------- 
+dat$study_category_var: Goldfield2015_1_QOL
+
+Random-Effects Model (k = 4; tau^2 estimator: ML)
+
+tau^2 (estimated amount of total heterogeneity): 0.7806 (SE = 0.5779)
+tau (square root of estimated tau^2 value):      0.8835
+I^2 (total heterogeneity / total variability):   95.52%
+H^2 (total variability / sampling variability):  22.32
+
+Test for Heterogeneity: 
+Q(df = 3) = 89.2899, p-val < .0001
+
+Model Results:
+
+estimate       se     zval     pval    ci.lb    ci.ub          
+  0.7089   0.4520   1.5684   0.1168  -0.1770   1.5948          
+
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1 
+
+-------------------------------------------------------- 
+dat$study_category_var: Goldfield2015_1_self-esteem
+
+Random-Effects Model (k = 6; tau^2 estimator: ML)
+
+tau^2 (estimated amount of total heterogeneity): 0 (SE = 0.0207)
+tau (square root of estimated tau^2 value):      0
+I^2 (total heterogeneity / total variability):   0.00%
+H^2 (total variability / sampling variability):  1.00
+
+Test for Heterogeneity: 
+Q(df = 5) = 3.7285, p-val = 0.5891
+
+Model Results:
+
+estimate       se     zval     pval    ci.lb    ci.ub          
+  0.2881   0.0773   3.7243   0.0002   0.1365   0.4397      *** 
+
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1 
+
+-------------------------------------------------------- 
+dat$study_category_var: Goldfield2015_2_mood
+
+Random-Effects Model (k = 6; tau^2 estimator: ML)
+
+tau^2 (estimated amount of total heterogeneity): 0.1396 (SE = 0.1029)
+tau (square root of estimated tau^2 value):      0.3736
+I^2 (total heterogeneity / total variability):   78.32%
+H^2 (total variability / sampling variability):  4.61
+
+Test for Heterogeneity: 
+Q(df = 5) = 27.6814, p-val < .0001
+
+Model Results:
+
+estimate       se     zval     pval    ci.lb    ci.ub          
+  0.1937   0.1723   1.1238   0.2611  -0.1441   0.5314          
+
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1 
+
+-------------------------------------------------------- 
+dat$study_category_var: Goldfield2015_2_QOL
+
+Random-Effects Model (k = 4; tau^2 estimator: ML)
+
+tau^2 (estimated amount of total heterogeneity): 0 (SE = 0.0273)
+tau (square root of estimated tau^2 value):      0
+I^2 (total heterogeneity / total variability):   0.00%
+H^2 (total variability / sampling variability):  1.00
+
+Test for Heterogeneity: 
+Q(df = 3) = 0.2688, p-val = 0.9658
+
+Model Results:
+
+estimate       se     zval     pval    ci.lb    ci.ub          
+  0.0882   0.0983   0.8980   0.3692  -0.1044   0.2808          
+
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1 
+
+-------------------------------------------------------- 
+dat$study_category_var: Goldfield2015_2_self-esteem
+
+Random-Effects Model (k = 6; tau^2 estimator: ML)
+
+tau^2 (estimated amount of total heterogeneity): 0 (SE = 0.0221)
+tau (square root of estimated tau^2 value):      0
+I^2 (total heterogeneity / total variability):   0.00%
+H^2 (total variability / sampling variability):  1.00
+
+Test for Heterogeneity: 
+Q(df = 5) = 2.9464, p-val = 0.7083
+
+Model Results:
+
+estimate       se     zval     pval    ci.lb    ci.ub          
+  0.0916   0.0800   1.1460   0.2518  -0.0651   0.2483          
+
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1 
+
+-------------------------------------------------------- 
+dat$study_category_var: Goldfield2015_3_mood
+
+Random-Effects Model (k = 6; tau^2 estimator: ML)
+
+tau^2 (estimated amount of total heterogeneity): 0 (SE = 0.0216)
+tau (square root of estimated tau^2 value):      0
+I^2 (total heterogeneity / total variability):   0.00%
+H^2 (total variability / sampling variability):  1.00
+
+Test for Heterogeneity: 
+Q(df = 5) = 2.5230, p-val = 0.7730
+
+Model Results:
+
+estimate       se     zval     pval    ci.lb    ci.ub          
+  0.0005   0.0789   0.0058   0.9954  -0.1543   0.1552          
+
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1 
+
+-------------------------------------------------------- 
+dat$study_category_var: Goldfield2015_3_QOL
+
+Random-Effects Model (k = 4; tau^2 estimator: ML)
+
+tau^2 (estimated amount of total heterogeneity): 0.7832 (SE = 0.5802)
+tau (square root of estimated tau^2 value):      0.8850
+I^2 (total heterogeneity / total variability):   95.44%
+H^2 (total variability / sampling variability):  21.95
+
+Test for Heterogeneity: 
+Q(df = 3) = 87.7893, p-val < .0001
+
+Model Results:
+
+estimate       se     zval     pval    ci.lb    ci.ub          
+  0.5886   0.4529   1.2995   0.1938  -0.2991   1.4763          
+
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1 
+
+-------------------------------------------------------- 
+dat$study_category_var: Goldfield2015_3_self-esteem
+
+Random-Effects Model (k = 6; tau^2 estimator: ML)
+
+tau^2 (estimated amount of total heterogeneity): 0 (SE = 0.0214)
+tau (square root of estimated tau^2 value):      0
+I^2 (total heterogeneity / total variability):   0.00%
+H^2 (total variability / sampling variability):  1.00
+
+Test for Heterogeneity: 
+Q(df = 5) = 3.6075, p-val = 0.6072
+
+Model Results:
+
+estimate       se     zval     pval    ci.lb    ci.ub          
+  0.1664   0.0787   2.1149   0.0344   0.0122   0.3205        * 
+
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1 
+
+-------------------------------------------------------- 
+dat$study_category_var: Lau2004_2_disorders
+NULL
+-------------------------------------------------------- 
+dat$study_category_var: Lau2004_2_strength
+NULL
+-------------------------------------------------------- 
+dat$study_category_var: Levinger2007_1_QOL
+
+Random-Effects Model (k = 2; tau^2 estimator: ML)
+
+tau^2 (estimated amount of total heterogeneity): 0 (SE = 0.1866)
+tau (square root of estimated tau^2 value):      0
+I^2 (total heterogeneity / total variability):   0.00%
+H^2 (total variability / sampling variability):  1.00
+
+Test for Heterogeneity: 
+Q(df = 1) = 0.0204, p-val = 0.8864
+
+Model Results:
+
+estimate       se     zval     pval    ci.lb    ci.ub          
+  0.9629   0.3054   3.1526   0.0016   0.3642   1.5615       ** 
+
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1 
+
+-------------------------------------------------------- 
+dat$study_category_var: Levinger2007_1_strength
+
+Fixed-Effects Model (k = 1)
+
+Test for Heterogeneity: 
+Q(df = 0) = 0.0000, p-val = 1.0000
+
+Model Results:
+
+estimate       se     zval     pval    ci.lb    ci.ub          
+  1.2213   0.4317   2.8290   0.0047   0.3752   2.0674       ** 
+
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1 
+
+-------------------------------------------------------- 
+dat$study_category_var: Levinger2009_5_mood
+NULL
+-------------------------------------------------------- 
+dat$study_category_var: Levinger2009_5_QOL
+NULL
+-------------------------------------------------------- 
+dat$study_category_var: Levinger2009_5_strength
+NULL
+-------------------------------------------------------- 
+dat$study_category_var: Levinger2011_1_disorders
+
+Fixed-Effects Model (k = 1)
+
+Test for Heterogeneity: 
+Q(df = 0) = 0.0000, p-val = 1.0000
+
+Model Results:
+
+estimate       se     zval     pval    ci.lb    ci.ub          
+ -0.9645   0.4482  -2.1521   0.0314  -1.8429  -0.0861        * 
+
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1 
+
+-------------------------------------------------------- 
+dat$study_category_var: Levinger2011_1_strength
+
+Fixed-Effects Model (k = 1)
+
+Test for Heterogeneity: 
+Q(df = 0) = 0.0000, p-val = 1.0000
+
+Model Results:
+
+estimate       se     zval     pval    ci.lb    ci.ub          
+  1.2213   0.4317   2.8290   0.0047   0.3752   2.0674       ** 
+
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1 
+
+-------------------------------------------------------- 
+dat$study_category_var: Martins2011_1_mood
+
+Random-Effects Model (k = 6; tau^2 estimator: ML)
+
+tau^2 (estimated amount of total heterogeneity): 0 (SE = 0.0612)
+tau (square root of estimated tau^2 value):      0
+I^2 (total heterogeneity / total variability):   0.00%
+H^2 (total variability / sampling variability):  1.00
+
+Test for Heterogeneity: 
+Q(df = 5) = 4.9592, p-val = 0.4209
+
+Model Results:
+
+estimate       se     zval     pval    ci.lb    ci.ub          
+ -0.2458   0.1329  -1.8494   0.0644  -0.5064   0.0147        . 
+
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1 
+
+-------------------------------------------------------- 
+dat$study_category_var: Martins2011_1_strength
+
+Random-Effects Model (k = 2; tau^2 estimator: ML)
+
+tau^2 (estimated amount of total heterogeneity): 0.6966 (SE = 0.8023)
+tau (square root of estimated tau^2 value):      0.8346
+I^2 (total heterogeneity / total variability):   86.82%
+H^2 (total variability / sampling variability):  7.59
+
+Test for Heterogeneity: 
+Q(df = 1) = 15.1757, p-val < .0001
+
+Model Results:
+
+estimate       se     zval     pval    ci.lb    ci.ub          
+  2.1283   0.6334   3.3603   0.0008   0.8870   3.3697      *** 
+
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1 
+
+-------------------------------------------------------- 
+dat$study_category_var: Martins2011_3_mood
+
+Random-Effects Model (k = 6; tau^2 estimator: ML)
+
+tau^2 (estimated amount of total heterogeneity): 0 (SE = 0.0688)
+tau (square root of estimated tau^2 value):      0
+I^2 (total heterogeneity / total variability):   0.00%
+H^2 (total variability / sampling variability):  1.00
+
+Test for Heterogeneity: 
+Q(df = 5) = 4.3282, p-val = 0.5032
+
+Model Results:
+
+estimate       se     zval     pval    ci.lb    ci.ub          
+ -0.3996   0.1409  -2.8348   0.0046  -0.6758  -0.1233       ** 
+
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1 
+
+-------------------------------------------------------- 
+dat$study_category_var: Martins2011_3_strength
+
+Random-Effects Model (k = 2; tau^2 estimator: ML)
+
+tau^2 (estimated amount of total heterogeneity): 0.8048 (SE = 0.9236)
+tau (square root of estimated tau^2 value):      0.8971
+I^2 (total heterogeneity / total variability):   87.14%
+H^2 (total variability / sampling variability):  7.78
+
+Test for Heterogeneity: 
+Q(df = 1) = 15.5512, p-val < .0001
+
+Model Results:
+
+estimate       se     zval     pval    ci.lb    ci.ub          
+  0.5228   0.6795   0.7693   0.4417  -0.8091   1.8547          
+
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1 
+
+-------------------------------------------------------- 
+dat$study_category_var: Messier2014_2_inhibition
+
+Random-Effects Model (k = 3; tau^2 estimator: ML)
+
+tau^2 (estimated amount of total heterogeneity): 0 (SE = 0.0478)
+tau (square root of estimated tau^2 value):      0
+I^2 (total heterogeneity / total variability):   0.00%
+H^2 (total variability / sampling variability):  1.00
+
+Test for Heterogeneity: 
+Q(df = 2) = 1.0249, p-val = 0.5990
+
+Model Results:
+
+estimate       se     zval     pval    ci.lb    ci.ub          
+  0.2828   0.1398   2.0234   0.0430   0.0089   0.5567        * 
+
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1 
+
+-------------------------------------------------------- 
+dat$study_category_var: Messier2014_2_Outcome expectations
+
+Random-Effects Model (k = 3; tau^2 estimator: ML)
+
+tau^2 (estimated amount of total heterogeneity): 0 (SE = 0.0479)
+tau (square root of estimated tau^2 value):      0
+I^2 (total heterogeneity / total variability):   0.00%
+H^2 (total variability / sampling variability):  1.00
+
+Test for Heterogeneity: 
+Q(df = 2) = 0.5660, p-val = 0.7535
+
+Model Results:
+
+estimate       se     zval     pval    ci.lb    ci.ub          
+  0.0852   0.1398   0.6095   0.5422  -0.1888   0.3591          
+
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1 
+
+-------------------------------------------------------- 
+dat$study_category_var: Messier2014_2_QOL
+
+Random-Effects Model (k = 7; tau^2 estimator: ML)
+
+tau^2 (estimated amount of total heterogeneity): 0.0010 (SE = 0.0319)
+tau (square root of estimated tau^2 value):      0.0314
+I^2 (total heterogeneity / total variability):   1.65%
+H^2 (total variability / sampling variability):  1.02
+
+Test for Heterogeneity: 
+Q(df = 6) = 7.1178, p-val = 0.3101
+
+Model Results:
+
+estimate       se     zval     pval    ci.lb    ci.ub          
+  0.1738   0.0923   1.8836   0.0596  -0.0070   0.3546        . 
+
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1 
+
+-------------------------------------------------------- 
+dat$study_category_var: Messier2014_2_self-efficacy
+
+Fixed-Effects Model (k = 1)
+
+Test for Heterogeneity: 
+Q(df = 0) = 0.0000, p-val = 1.0000
+
+Model Results:
+
+estimate       se     zval     pval    ci.lb    ci.ub          
+  0.0667   0.2421   0.2754   0.7830  -0.4078   0.5411          
+
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1 
+
+-------------------------------------------------------- 
+dat$study_category_var: Messier2014_2_self-esteem
+
+Random-Effects Model (k = 5; tau^2 estimator: ML)
+
+tau^2 (estimated amount of total heterogeneity): 0.0798 (SE = 0.0875)
+tau (square root of estimated tau^2 value):      0.2824
+I^2 (total heterogeneity / total variability):   57.65%
+H^2 (total variability / sampling variability):  2.36
+
+Test for Heterogeneity: 
+Q(df = 4) = 11.8057, p-val = 0.0189
+
+Model Results:
+
+estimate       se     zval     pval    ci.lb    ci.ub          
+  0.0310   0.1663   0.1862   0.8523  -0.2951   0.3570          
+
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1 
+
+-------------------------------------------------------- 
+dat$study_category_var: Messier2014_2_strength
+
+Fixed-Effects Model (k = 1)
+
+Test for Heterogeneity: 
+Q(df = 0) = 0.0000, p-val = 1.0000
+
+Model Results:
+
+estimate       se     zval     pval    ci.lb    ci.ub          
+  1.1506   0.2421   4.7537   <.0001   0.6762   1.6251      *** 
+
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1 
+
+-------------------------------------------------------- 
+dat$study_category_var: Messier2014_2_stress
+
+Fixed-Effects Model (k = 1)
+
+Test for Heterogeneity: 
+Q(df = 0) = 0.0000, p-val = 1.0000
+
+Model Results:
+
+estimate       se     zval     pval    ci.lb    ci.ub          
+  0.0103   0.2421   0.0424   0.9662  -0.4642   0.4847          
+
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1 
+
+-------------------------------------------------------- 
+dat$study_category_var: Plotnikoff2010_1_QOL
+
+Random-Effects Model (k = 2; tau^2 estimator: ML)
+
+tau^2 (estimated amount of total heterogeneity): 0 (SE = 0.1185)
+tau (square root of estimated tau^2 value):      0
+I^2 (total heterogeneity / total variability):   0.00%
+H^2 (total variability / sampling variability):  1.00
+
+Test for Heterogeneity: 
+Q(df = 1) = 0.0075, p-val = 0.9310
+
+Model Results:
+
+estimate       se     zval     pval    ci.lb    ci.ub          
+  0.1915   0.2434   0.7866   0.4315  -0.2856   0.6686          
+
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1 
+
+-------------------------------------------------------- 
+dat$study_category_var: Plotnikoff2010_1_self-efficacy
+
+Random-Effects Model (k = 5; tau^2 estimator: ML)
+
+tau^2 (estimated amount of total heterogeneity): 0 (SE = 0.0749)
+tau (square root of estimated tau^2 value):      0
+I^2 (total heterogeneity / total variability):   0.00%
+H^2 (total variability / sampling variability):  1.00
+
+Test for Heterogeneity: 
+Q(df = 4) = 0.6065, p-val = 0.9623
+
+Model Results:
+
+estimate       se     zval     pval    ci.lb    ci.ub          
+  0.4939   0.1539   3.2084   0.0013   0.1922   0.7956       ** 
+
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1 
+
+-------------------------------------------------------- 
+dat$study_category_var: Plotnikoff2010_1_strength
+
+Random-Effects Model (k = 3; tau^2 estimator: ML)
+
+tau^2 (estimated amount of total heterogeneity): 0 (SE = 0.0968)
+tau (square root of estimated tau^2 value):      0
+I^2 (total heterogeneity / total variability):   0.00%
+H^2 (total variability / sampling variability):  1.00
+
+Test for Heterogeneity: 
+Q(df = 2) = 0.1938, p-val = 0.9076
+
+Model Results:
+
+estimate       se     zval     pval    ci.lb    ci.ub          
+  0.5534   0.1988   2.7846   0.0054   0.1639   0.9430       ** 
+
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1 
+
+-------------------------------------------------------- 
+dat$study_category_var: Sarsan2006_1_disorders
+
+Fixed-Effects Model (k = 1)
+
+Test for Heterogeneity: 
+Q(df = 0) = 0.0000, p-val = 1.0000
+
+Model Results:
+
+estimate       se     zval     pval    ci.lb    ci.ub          
+ -0.5414   0.3741  -1.4470   0.1479  -1.2747   0.1919          
+
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1 
+
+-------------------------------------------------------- 
+dat$study_category_var: Sarsan2006_1_strength
+
+Random-Effects Model (k = 6; tau^2 estimator: ML)
+
+tau^2 (estimated amount of total heterogeneity): 0.2325 (SE = 0.2149)
+tau (square root of estimated tau^2 value):      0.4822
+I^2 (total heterogeneity / total variability):   62.47%
+H^2 (total variability / sampling variability):  2.66
+
+Test for Heterogeneity: 
+Q(df = 5) = 15.9885, p-val = 0.0069
+
+Model Results:
+
+estimate       se     zval     pval    ci.lb    ci.ub          
+  1.7439   0.2491   7.0016   <.0001   1.2557   2.2320      *** 
+
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1 
+
+-------------------------------------------------------- 
+dat$study_category_var: Sarsan2006_3_disorders
+
+Fixed-Effects Model (k = 1)
+
+Test for Heterogeneity: 
+Q(df = 0) = 0.0000, p-val = 1.0000
+
+Model Results:
+
+estimate       se     zval     pval    ci.lb    ci.ub          
+  0.6173   0.3740   1.6505   0.0988  -0.1158   1.3504        . 
+
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1 
+
+-------------------------------------------------------- 
+dat$study_category_var: Sarsan2006_3_strength
+
+Random-Effects Model (k = 6; tau^2 estimator: ML)
+
+tau^2 (estimated amount of total heterogeneity): 0.1755 (SE = 0.1819)
+tau (square root of estimated tau^2 value):      0.4189
+I^2 (total heterogeneity / total variability):   55.71%
+H^2 (total variability / sampling variability):  2.26
+
+Test for Heterogeneity: 
+Q(df = 5) = 13.5493, p-val = 0.0187
+
+Model Results:
+
+estimate       se     zval     pval    ci.lb    ci.ub          
+  0.4414   0.2291   1.9263   0.0541  -0.0077   0.8904        . 
+
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1 
+
+-------------------------------------------------------- 
+dat$study_category_var: Schranz2014_1_Outcome expectations
+
+Fixed-Effects Model (k = 1)
+
+Test for Heterogeneity: 
+Q(df = 0) = 0.0000, p-val = 1.0000
+
+Model Results:
+
+estimate       se     zval     pval    ci.lb    ci.ub          
+ -0.1571   0.3387  -0.4640   0.6427  -0.8210   0.5067          
+
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1 
+
+-------------------------------------------------------- 
+dat$study_category_var: Schranz2014_1_self-efficacy
+
+Random-Effects Model (k = 2; tau^2 estimator: ML)
+
+tau^2 (estimated amount of total heterogeneity): 0 (SE = 0.1147)
+tau (square root of estimated tau^2 value):      0
+I^2 (total heterogeneity / total variability):   0.00%
+H^2 (total variability / sampling variability):  1.00
+
+Test for Heterogeneity: 
+Q(df = 1) = 0.3236, p-val = 0.5694
+
+Model Results:
+
+estimate       se     zval     pval    ci.lb    ci.ub          
+  0.8239   0.2395   3.4407   0.0006   0.3546   1.2933      *** 
+
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1 
+
+-------------------------------------------------------- 
+dat$study_category_var: Schranz2014_1_self-esteem
+
+Random-Effects Model (k = 2; tau^2 estimator: ML)
+
+tau^2 (estimated amount of total heterogeneity): 0 (SE = 0.1147)
+tau (square root of estimated tau^2 value):      0
+I^2 (total heterogeneity / total variability):   0.00%
+H^2 (total variability / sampling variability):  1.00
+
+Test for Heterogeneity: 
+Q(df = 1) = 0.0354, p-val = 0.8507
+
+Model Results:
+
+estimate       se     zval     pval    ci.lb    ci.ub          
+  0.5636   0.2395   2.3535   0.0186   0.0942   1.0329        * 
+
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1 
+
+-------------------------------------------------------- 
+dat$study_category_var: Schranz2014_1_strength
+
+Random-Effects Model (k = 2; tau^2 estimator: ML)
+
+tau^2 (estimated amount of total heterogeneity): 0 (SE = 0.1145)
+tau (square root of estimated tau^2 value):      0
+I^2 (total heterogeneity / total variability):   0.00%
+H^2 (total variability / sampling variability):  1.00
+
+Test for Heterogeneity: 
+Q(df = 1) = 0.0125, p-val = 0.9108
+
+Model Results:
+
+estimate       se     zval     pval    ci.lb    ci.ub          
+  1.1791   0.2393   4.9275   <.0001   0.7101   1.6480      *** 
+
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1 
+
+-------------------------------------------------------- 
+dat$study_category_var: Wadden1997_2_disorders
+NULL
+-------------------------------------------------------- 
+dat$study_category_var: Wadden1997_2_inhibition
+NULL
+-------------------------------------------------------- 
+dat$study_category_var: Wadden1997_2_mood
+NULL
+-------------------------------------------------------- 
+dat$study_category_var: Wadden1997_2_strength
+NULL
+-------------------------------------------------------- 
+dat$study_category_var: Wadden1997_4_disorders
+NULL
+-------------------------------------------------------- 
+dat$study_category_var: Wadden1997_4_inhibition
+NULL
+-------------------------------------------------------- 
+dat$study_category_var: Wadden1997_4_mood
+NULL
+-------------------------------------------------------- 
+dat$study_category_var: Wadden1997_4_strength
+NULL
+-------------------------------------------------------- 
+dat$study_category_var: Wadden1998_2_mood
+NULL
+-------------------------------------------------------- 
+dat$study_category_var: Wadden1999_2_mood
+NULL
+-------------------------------------------------------- 
+dat$study_category_var: Wadden2000_2_mood
+NULL
+-------------------------------------------------------- 
+dat$study_category_var: Wadden2001_2_mood
+NULL
+-------------------------------------------------------- 
+dat$study_category_var: Wicker2015_5_QOL
+NULL
+-------------------------------------------------------- 
+dat$study_category_var: Wicker2015_5_strength
+NULL
+-------------------------------------------------------- 
+dat$study_category_var: Williams2016_5_
+NULL
+-------------------------------------------------------- 
+dat$study_category_var: Williams2016_5_inhibition
+NULL
+-------------------------------------------------------- 
+dat$study_category_var: Williams2016_5_intention
+NULL
+-------------------------------------------------------- 
+dat$study_category_var: Williams2016_5_outcome expectations
+NULL
+-------------------------------------------------------- 
+dat$study_category_var: Williams2016_5_QOL
+NULL
+-------------------------------------------------------- 
+dat$study_category_var: Williams2016_5_self-efficacy
+NULL
+-------------------------------------------------------- 
+dat$study_category_var: Yu2001_2_self-esteem
+
+Random-Effects Model (k = 11; tau^2 estimator: ML)
+
+tau^2 (estimated amount of total heterogeneity): 0 (SE = 0.0291)
+tau (square root of estimated tau^2 value):      0
+I^2 (total heterogeneity / total variability):   0.00%
+H^2 (total variability / sampling variability):  1.00
+
+Test for Heterogeneity: 
+Q(df = 10) = 7.1440, p-val = 0.7118
+
+Model Results:
+
+estimate       se     zval     pval    ci.lb    ci.ub          
+  0.0993   0.0788   1.2608   0.2074  -0.0551   0.2538          
+
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1 
+
+-------------------------------------------------------- 
+dat$study_category_var: Yu2001_2_strength
+
+Random-Effects Model (k = 5; tau^2 estimator: ML)
+
+tau^2 (estimated amount of total heterogeneity): 0 (SE = 0.0432)
+tau (square root of estimated tau^2 value):      0
+I^2 (total heterogeneity / total variability):   0.00%
+H^2 (total variability / sampling variability):  1.00
+
+Test for Heterogeneity: 
+Q(df = 4) = 0.6204, p-val = 0.9608
+
+Model Results:
+
+estimate       se     zval     pval    ci.lb    ci.ub          
+  0.2494   0.1169   2.1337   0.0329   0.0203   0.4784        * 
+
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1 
+
